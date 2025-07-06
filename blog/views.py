@@ -19,9 +19,23 @@ def create_post(request):
         return render(request, 'blog/post_add.html')
     
     if request.method == "POST":
-        user_title = request.POST.get('title')
-        user_text = request.POST.get('text')
+        user_title = request.POST.get('title').strip()
+        user_text = request.POST.get('text').strip()
 
-        post = Post.objects.create(title = user_title, content = user_text)
+        errors_dict = {}
 
-        return redirect('post_detail', post_id = post.id)
+        if not user_title:
+            errors_dict['title'] = 'Обязательное поле'
+        if not user_text:
+            errors_dict['text'] = 'Обязательное поле'
+
+        if not errors_dict:
+            post = Post.objects.create(title = user_title, content = user_text)
+            return redirect('post_detail', post_id = post.id)
+        else:
+            context = {
+                'errors': errors_dict,
+                'title': user_title,
+                'text': user_text,
+            }
+            return render(request, 'blog/post_add.html', context=context)
