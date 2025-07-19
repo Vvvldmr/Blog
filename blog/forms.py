@@ -1,25 +1,27 @@
 from django import forms
 
+from .models import Post
 
-class PostForm(forms.Form):
-    title = forms.CharField(
-        max_length=200,
-        strip=True,
-        required=True,
-        label='Заголовок поста',
-        widget=forms.TextInput(attrs={
-            'placeholder': 'максимальная длинна 200 символов',
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content']
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'placeholder': "Максимальная длинна 200 символов"
             })
-    )
-    text = forms.CharField(
-        label='Содержание поста', 
-        widget=forms.Textarea(attrs={ 'rows': 3})
-        )
-    
+        }
+        labels = {
+            'title': 'Заголовок поста:',
+            'text': 'Текст поста'
+        }
+
 def clean_title(self):
-    title = self.cleaned_data['title'].strip()
+    title = self.cleaned_data["title"].strip()
 
     if len(title) < 5:
-        raise forms.ValidationError("Заголовок не может быть меньше 5 символов")
-    
+        raise forms.ValidationError('Должен быть более 5 символов')
+
     return title
+            
+            

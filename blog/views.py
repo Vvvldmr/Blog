@@ -20,14 +20,11 @@ def create_post(request):
     if request.method == "GET":
         form = PostForm()
         return render(request, 'blog/post_add.html', context={"form": form})
-    
-    if request.method == "POST":
+
+    if request.metod == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
-            post = Post.objects.create(
-                title = form.cleaned_data['title'],
-                content = form.cleaned_data['text']
-            )
+            post = form.save()
             return redirect('post_detail', post_id = post.id)
-        
-        return render(request, 'blog/post_add.html', context={"form": form})
+
+    return render(request, 'blog/post_add.html', context={"form": form})
