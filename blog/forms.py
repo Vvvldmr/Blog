@@ -13,7 +13,7 @@ class PostForm(forms.ModelForm):
         }
         labels = {
             'title': 'Заголовок поста:',
-            'text': 'Текст поста'
+            'content': 'Текст поста'
         }
 
 def clean_title(self):
