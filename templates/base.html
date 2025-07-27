@@ -22,16 +22,27 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="{% url "post_list" %}">Список постов</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url "create_post" %}">Создать новый пост</a>
                         </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        {% if request.user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url "logout_view" %}">Выйти</a>
+                            </li>
+                        {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url "register_view" %}">Регистрация</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url "login_view" %}">Вход</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
