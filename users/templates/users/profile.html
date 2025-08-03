@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль{% endblock title %}
+
+{% block content %}
+    {% if user == request.user %}
+        <h1>Мой профиль</h1>
+    {% else %}
+        <h1>Профиль {{ user.username  }}</h1>
+    {% endif %}
+
+    {% if posts %} {% for post in posts %}
+    <div class="posts-container">
+      <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
+      <p>{{ post.content }}</p>
+    </div>
+    {% endfor %} {% else %}
+    <p>Постов еще нет!</p>
+    {% endif %}
+
+{% endblock content %}

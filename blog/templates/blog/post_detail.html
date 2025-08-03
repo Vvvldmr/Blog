@@ -5,8 +5,10 @@
     <a href="{% url 'post_list' %}">&larr;Назад</a>
     <h1>{{post.title}}</h1>
     <p>{{post.content}}</p>
-    <p>Автор поста {{post.author}}</p>
+    <p>Автор поста <a href="{% url "profile" post.author.username %}">{{post.author}}</a></p>
 
-    <a href=" {% url "update_post" post.id%}">Редактировать пост</a>
-    <a href=" {% url "delete_post" post.id%}">Удалить пост</a>
+    {% if request.user == post.author %}
+        <a href=" {% url "update_post" post.id%}">Редактировать пост</a>
+        <a href=" {% url "delete_post" post.id%}">Удалить пост</a>
+    {% endif %}
 {% endblock content %}
