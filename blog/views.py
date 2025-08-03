@@ -29,7 +29,10 @@ def create_post(request):
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
-            post = form.save()
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+
             return redirect('post_detail', post_id = post.id)
 
     return render(request, 'blog/post_form.html', context={"form": form, 'title': title, 'submit_button_text': submit_button_text})
@@ -63,4 +66,8 @@ def delete_post(request, post_id):
         return redirect("post_list")
 
     return render(request, 'blog/confirm_post_delete.html', context={'post': post})
+
+
+def main_page_view(request):
+    return render(request, template_name='blog/main_page.html')
 
