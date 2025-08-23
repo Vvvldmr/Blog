@@ -5,7 +5,7 @@ from .models import Post
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'image']
         widgets = {
             'title': forms.TextInput(attrs={
                 'placeholder': "Максимальная длинна 200 символов"
@@ -13,7 +13,8 @@ class PostForm(forms.ModelForm):
         }
         labels = {
             'title': 'Заголовок поста:',
-            'content': 'Текст поста'
+            'content': 'Текст поста',
+            'image': 'Картинка поста'
         }
 
 def clean_title(self):
