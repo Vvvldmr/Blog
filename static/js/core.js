@@ -1,0 +1,1 @@
+import './scroll_to_top.js';
