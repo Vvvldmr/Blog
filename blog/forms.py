@@ -5,14 +5,16 @@ from .models import Post
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content', 'image']
+        fields = ['title', 'category','content', 'image']
         widgets = {
             'title': forms.TextInput(attrs={
                 'placeholder': "Максимальная длинна 200 символов"
-            })
+            }),
+            'category': forms.Select(attrs={'class': 'form-controll'})
         }
         labels = {
             'title': 'Заголовок поста:',
+            'category': 'Категория:',
             'content': 'Текст поста',
             'image': 'Картинка поста'
         }

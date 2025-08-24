@@ -9,12 +9,13 @@
         <h1>Профиль {{ user.username  }}</h1>
     {% endif %}
 
-    {% if posts %} {% for post in posts %}
-    <div class="posts-container">
-      <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
-      <p>{{ post.content }}</p>
-    </div>
-    {% endfor %} {% else %}
+    {% if posts %} 
+        {% for post in posts %}
+            {% if user == request.user or post.status != 'draft' %}
+                {% include "blog/includes/post_container_include.html" %}
+            {% endif %}
+        {% endfor %} 
+    {% else %}
     <p>Постов еще нет!</p>
     {% endif %}
 
