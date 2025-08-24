@@ -11,6 +11,6 @@
         <button type="submit">Удалить пост</button>
     </form>
 
-    <a href=" {% url "post_detail" post.id %}">Отмена</a>
+    <a href=" {% url "post_detail" post.slug %}">Отмена</a>
     
 {% endblock content %}

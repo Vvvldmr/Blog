@@ -11,8 +11,8 @@ def get_post_list(request):
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 
-def post_detail(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
+def post_detail(request, post_slug):
+    post = get_object_or_404(Post, slug=post_slug)
 
     return render(request, 'blog/post_detail.html', {'post': post})
 
@@ -33,7 +33,7 @@ def create_post(request):
             post.author = request.user
             post.save()
 
-            return redirect('post_detail', post_id = post.id)
+            return redirect('post_detail', post_slug = post.slug)
 
     return render(request, 'blog/post_form.html', context={"form": form, 'title': title, 'submit_button_text': submit_button_text})
 
@@ -48,7 +48,7 @@ def update_post(request, post_id):
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             update_post = form.save()
-            return redirect('post_detail', post_id = update_post.id)
+            return redirect('post_detail', post_slug = update_post.slug)
         else:
             return render(request, 'blog/post_form.html', context={"form": form, 'title': title, 'submit_button_text': submit_button_text})
 
